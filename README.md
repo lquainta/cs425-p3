@@ -21,8 +21,9 @@ Run with no arguments to see the usage. Exit codes: 0 on success, 1 for a bad
 command line or a malformed address (including a `split` of a block with host
 bits set, or a count that is not a power of two), 2 when the table file can not
 be opened or has a bad line, and 3 when an address matches no route. A `lookup`
-always reports every address; if some were malformed and some unreachable it
-exits 1. Errors go to stderr and name what was wrong, for example
+prints one line per address in the order given, and an address that matches no
+route prints just `unreachable` on stdout. It always reports every address; if
+some were malformed and some unreachable it exits 1. Errors go to stderr and name what was wrong, for example
 `myapp: tables/bad.txt:4: not a valid route`.
 
 ## Design
@@ -135,8 +136,11 @@ returns false with `bad_line` set to 0.
 
 ## Known Bugs or Issues
 
-None known. An address that matches no route is printed on stdout as
-`<address> unreachable`, and the run exits 3. A `split` into a very large
+None known. An address that matches no route prints only `unreachable` on
+stdout, without the address, and the run exits 3. In a lookup of several
+addresses, its line's position tells which one it was. A malformed address is
+reported on stderr instead and prints nothing on stdout, so the stdout lines
+then no longer line up one for one with the arguments. A `split` into a very large
 count (for example `0.0.0.0/0` into 2147483648) is valid and prints every
 subnet, which takes a long time and a lot of output, but no extra memory.
 

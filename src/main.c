@@ -162,7 +162,7 @@ static int cmd_lookup(const char *path, int count, char *addresses[])
     const route_t *route = table_lookup(table, dest);
     if (route == NULL)
     {
-      printf("%s unreachable\n", text);
+      printf("unreachable\n");
       unreachable = true;
     }
     else if (route->gateway != 0)
