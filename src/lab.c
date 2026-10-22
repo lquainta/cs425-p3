@@ -134,9 +134,18 @@ static uint8_t clamp_prefix(uint8_t prefix) { return prefix > 32 ? 32 : prefix; 
 
 void cidr_format(cidr_t block, char out[CIDR_STR_LEN])
 {
-  char ip[IP_STR_LEN];
-  ip_format(block.addr, ip);
-  snprintf(out, CIDR_STR_LEN, "%s/%u", ip, (unsigned)clamp_prefix(block.prefix));
+  // The prefix is written by hand: at most 2 digits, which snprintf can not
+  // be told, so gcc would warn that "%u" might not fit
+  ip_format(block.addr, out);
+  size_t len = strlen(out);
+  uint8_t prefix = clamp_prefix(block.prefix);
+  out[len++] = '/';
+  if (prefix >= 10)
+  {
+    out[len++] = (char)('0' + prefix / 10);
+  }
+  out[len++] = (char)('0' + prefix % 10);
+  out[len] = '\0';
 }
 
 /* ------------------------------------------------------------------------
