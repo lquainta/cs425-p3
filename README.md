@@ -146,4 +146,7 @@ subnet, which takes a long time and a lot of output, but no extra memory.
 
 ## Experience
 
-TODO: Describe your experience with the project (struggles, breakthroughs, etc.).
+Yeah this project was pretty fun. I feel like I am learning a lot about how to use AI for development. It is super fun 
+and I just like to see how many tokens I can burn at the end of the day. I mostly want to see what the cap is for my Claude Pro
+subscription, but haven't managed to hit that yet. Honestly this project was kind of easy and I got it done in about 10 minutes,
+thanks to my boy Claude.
